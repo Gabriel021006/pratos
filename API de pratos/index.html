@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Pratos</h2>
+<ul id="pratos"></ul>
+<hr>
+<h4>Novo prato</h4>
+<input type="text" name="nomeDoPrato" id="nomeDoPrato" placeholder="Nome"><br>
+<input type="number" name="valorDoPrato" id="valorDoPrato" placeholder="Valor"><br>
+<input type="text" name="imagemDoPrato" id="imagemDoPrato" placeholder="Imagem"><br>
+<button type="button" onclick="createPrato()">Criar</button>
+
+
+<p id="demo"></p>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script> 
+
+function createPrato(){
+  var nomeDoPratoInput = document.getElementById("nomeDoPrato");
+  var valorDoPratoInput = document.getElementById("valorDoPrato");
+  var imagemDoPratoInput = document.getElementById("imagemDoPrato");
+
+var prato = {
+  nomeDoPrato: nomeDoPratoInput.value,
+valorDoPrato : valorDoPratoInput.value,
+imagemDoPrato : imagemDoPratoInput.value
+}
+axios.post("http://localhost:9090/pratos",prato).then(response =>{
+
+if (response.status == 200){
+  alert("prato cadastrado")
+}
+
+}).catch(err =>{
+  console.log(err)
+})
+
+
+
+}
+
+
+
+axios.get("http://localhost:9090/pratos").then(response=>{
+  debugger
+var pratos = response.data;
+
+
+let text = "";
+for (let i = 0; i < pratos.length; i++) {
+  text += "nome=" + pratos[i].nomeDoPrato  + "preço=" + pratos[i].valorDoPrato +"imagem=" + pratos[i].imagemDoPrato + "<br>";
+}
+
+document.getElementById("demo").innerHTML = text;
+
+
+
+
+}).catch(err=>{
+console.log(err)
+});
+
+  
+
+
+
+</script>
+
+</body>
+
+</html>
+
