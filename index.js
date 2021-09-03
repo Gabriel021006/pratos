@@ -115,7 +115,7 @@ app.get("/pras/:id",auth,(req , res)=>{
     app.delete("/pratos/:id",auth,(req,res)=>{
     
         Prato.findByIdAndDelete("").then(()=>{
-            console.log("Dado removido")
+            console.log("Dado excluido")
         }).catch(err =>{
             console.log(err)
         })
